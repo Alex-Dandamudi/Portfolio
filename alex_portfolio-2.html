@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Dandamudi - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #495057;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #495057;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #6c757d;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #6c757d;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: #495057;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23e9ecef"><polygon points="0,0 1000,0 1000,100 0,60"/></svg>') no-repeat bottom;
+            background-size: cover;
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #495057;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #495057;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid #495057;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .btn:hover {
+            background: #6c757d;
+            border-color: #6c757d;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #6c757d, #495057);
+        }
+
+        /* About */
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .education {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .education-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .education-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-category h3::before {
+            font-size: 1.2rem;
+        }
+
+        .skill-category:nth-child(1) h3::before {
+            content: '💻';
+        }
+
+        .skill-category:nth-child(2) h3::before {
+            content: '🌐';
+        }
+
+        .skill-category:nth-child(3) h3::before {
+            content: '📚';
+        }
+
+        .skill-category:nth-child(4) h3::before {
+            content: '🤖';
+        }
+
+        .skill-category:nth-child(5) h3::before {
+            content: '🛠️';
+        }
+
+        .skill-category:nth-child(6) h3::before {
+            content: '🗄️';
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .skill-tag:hover {
+            transform: scale(1.05);
+            background: #e9ecef;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .project-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-meta::before {
+            content: '📅';
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+
+        /* Certifications */
+        .certifications {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .cert-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cert-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #495057;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .skills-grid,
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, #6c757d, #495057);
+            transform-origin: left;
+            transform: scaleX(0);
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator"></div>
+    
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Alex Dandamudi</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Alex Dandamudi</h1>
+            <p>Computer Science & Engineering Graduate | AI/ML Enthusiast | Full Stack Developer</p>
+            <div class="contact-info">
+                <a href="tel:+919182055133" class="contact-item">
+                    <span>📞</span> +91-9182055133
+                </a>
+                <a href="mailto:alexdandamudi5@gmail.com" class="contact-item">
+                    <span>📧</span> alexdandamudi5@gmail.com
+                </a>
+                <a href="#" class="contact-item">
+                    <span>🌍</span> Guntur, Andhra Pradesh
+                </a>
+            </div>
+            <a href="#about" class="btn">Learn More About Me</a>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content fade-in">
+                <p>I'm a Computer Science and Engineering graduate with a passion for Artificial Intelligence and Machine Learning. With expertise in Python, Java, and web technologies, I bring hands-on experience in IoT and machine learning projects. I'm actively seeking entry-level software development opportunities where I can apply my technical skills and contribute to impactful solutions while continuing to grow in emerging technologies.</p>
+                
+                <div class="education">
+                    <div class="education-item">
+                        <h3>🎓 Bachelor of Technology</h3>
+                        <h4>Vellore Institute of Technology</h4>
+                        <p><strong>📊 CGPA:</strong> 7.35</p>
+                        <p><strong>📅 Duration:</strong> 07/2021 – Current</p>
+                        <p><strong>🌍 Location:</strong> Amaravati, India</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>🎓 Intermediate Education</h3>
+                        <h4>Narayana College</h4>
+                        <p><strong>📊 Percentage:</strong> 76.1%</p>
+                        <p><strong>📅 Duration:</strong> 06/2019 – 05/2021</p>
+                        <p><strong>🌍 Location:</strong> Guntur, India</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid fade-in">
+                <div class="skill-category">
+                    <h3>Programming Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL (MySQL)</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Web Development</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Node.js</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Core Subjects</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">OOP</span>
+                        <span class="skill-tag">DBMS</span>
+                        <span class="skill-tag">Operating Systems</span>
+                        <span class="skill-tag">Computer Networks</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>ML & Data Science</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">Matplotlib</span>
+                        <span class="skill-tag">NLTK</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Tools & Technologies</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PyCharm</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Google Colab</span>
+                        <span class="skill-tag">Tableau</span>
+                        <span class="skill-tag">MS Excel</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>Database & Cloud</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">IoT Cloud</span>
+                        <span class="skill-tag">ESP32</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <h2>Featured Projects</h2>
+            <div class="projects-grid fade-in">
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3 class="project-title">🧠 Heart Rate Variability Emotional Predictor</h3>
+                        <p class="project-meta">Machine Learning | Feb 2024 – Apr 2024</p>
+                        <div class="project-description">
+                            <p>Built a comprehensive machine learning solution to predict emotional states using HRV data from wearable devices. Implemented complete preprocessing and feature extraction pipelines, achieving 84% accuracy with AdaBoost classifier through comparative analysis of multiple algorithms.</p>
+                            <ul>
+                                <li>🎯 Achieved 84% accuracy in emotional state prediction</li>
+                                <li>📊 Conducted comparative analysis across multiple classifiers</li>
+                                <li>🏥 Explored applications in mental health and affective computing</li>
+                            </ul>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">AdaBoost</span>
+                            <span class="tech-tag">Random Forest</span>
+                            <span class="tech-tag">Decision Tree</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">Python</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3 class="project-title">📰 Citizen Journalism Platform</h3>
+                        <p class="project-meta">Web Development | Jul 2023 – Aug 2023</p>
+                        <div class="project-description">
+                            <p>Developed a comprehensive user-driven platform for sharing verified news and perspectives. Built with modern web technologies featuring real-time communication, secure authentication, and robust content verification system.</p>
+                            <ul>
+                                <li>📱 Responsive interface with real-time features</li>
+                                <li>🔐 Secure user authentication system</li>
+                                <li>✅ Content verification and moderation system</li>
+                                <li>📈 Enhanced scalability based on user feedback</li>
+                            </ul>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">React.js</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Socket.io</span>
+                            <span class="tech-tag">Passport.js</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3 class="project-title">🛣️ Smart Road Pothole Detection</h3>
+                        <p class="project-meta">IoT & Machine Learning | Jun 2023 – Aug 2023</p>
+                        <div class="project-description">
+                            <p>Designed a cutting-edge pothole detection solution leveraging IoT cloud and mobile integration. Created a GPS-enabled camera robot processing video feeds at 15 FPS with 80% precision, delivering real-time alerts within 5 seconds.</p>
+                            <ul>
+                                <li>⚡ Real-time alert system with 5-second response time</li>
+                                <li>📈 40% improvement in response times and user engagement</li>
+                                <li>🎯 GPS-enabled detection with 80% precision</li>
+                                <li>☁️ IoT cloud integration for scalability</li>
+                            </ul>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-tag">ESP32 CAM</span>
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">IoT Cloud</span>
+                            <span class="tech-tag">Computer Vision</span>
+                            <span class="tech-tag">GPS Integration</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="section">
+        <div class="container">
+            <h2>Certifications</h2>
+            <div class="certifications fade-in">
+                <div class="cert-card">
+                    <div class="cert-icon">🤖</div>
+                    <h3>Artificial Intelligence and Machine Learning</h3>
+                    <p>Externship Certificate</p>
+                    <p><strong>Powered by Google Developers</strong></p>
+                </div>
+                <div class="cert-card">
+                    <div class="cert-icon">💻</div>
+                    <h3>MERN Full Stack Development</h3>
+                    <p>Certification</p>
+                    <p><strong>ETHNUS</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <p>&copy; 2024 Alex Dandamudi. All rights reserved.</p>
+            <p>Ready to collaborate on your next project!</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll indicator
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            const scrolled = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollIndicator.style.transform = `scaleX(${scrolled / 100})`;
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Dynamic typing effect for hero title
+        const heroTitle = document.querySelector('.hero h1');
+        const text = heroTitle.textContent;
+        heroTitle.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < text.length) {
+                heroTitle.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        };
+        
+        setTimeout(typeWriter, 1000);
+
+        // Smooth parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const heroHeight = hero.offsetHeight;
+            
+            // Only apply parallax when hero is visible
+            if (scrolled < heroHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Interactive skill tags
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', () => {
+                tag.style.transform = 'scale(1.1) rotate(2deg)';
+            });
+            
+            tag.addEventListener('mouseleave', () => {
+                tag.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+    </script>
+</body>
+</html>
